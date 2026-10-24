@@ -1,5 +1,6 @@
 {
   "name": "divtovid",
   "owner": { "name": "divyanshugour" },
+  "description": "divtovid: a Claude Code mod that turns any website into a short promo video",
   "plugins": [{ "name": "divtovid", "source": "./" }]
 }

@@ -1,5 +1,9 @@
 {
   "name": "divtovid",
-  "version": "0.1.0",
-  "description": "/divtovid: scrape a website and turn it into a short promo video"
+  "version": "0.1.1",
+  "description": "/divtovid: scrape a website and turn it into a short promo video",
+  "author": { "name": "divyanshugour", "url": "https://github.com/divyanshugour" },
+  "homepage": "https://github.com/divyanshugour/divtovid",
+  "license": "MIT",
+  "icon": "./.claude-plugin/icon.png"
 }

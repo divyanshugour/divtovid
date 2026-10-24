@@ -75,7 +75,18 @@ export const register: Register = on => {
       .catch(() => LENGTHS[0])
     const seconds = Math.min(120, Math.max(5, Number.parseInt(length, 10) || 15))
 
-    void $.prompt.submit({ text: brief(url, seconds) })
+    const job = brief(url, seconds)
+    // If the engine refuses or drops the hand-off, say why and leave the job in the prompt box for Enter.
+    const fallback = (reason: string) => {
+      $.ui.log(`divtovid: could not start the video job (${reason}). It is in the prompt box: press Enter.`)
+      void $.prompt.fill({ text: job })
+    }
+    void $.prompt.submit({ text: job }).then(
+      result => {
+        if (result.drop !== undefined) fallback(result.drop)
+      },
+      (error: unknown) => fallback(error instanceof Error ? error.message : String(error)),
+    )
 
     return { text: `Making a ${seconds}s video for ${url} in divtovid-videos/${slugFor(url)}/` }
   }).catch(() => ({ text: `/${COMMAND} failed to start. Try again, or check the debug log.` }))
