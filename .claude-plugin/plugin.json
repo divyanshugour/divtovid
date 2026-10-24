@@ -1,6 +1,6 @@
 {
   "name": "divtovid",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "/divtovid: scrape a website and turn it into a short promo video",
   "author": { "name": "divyanshugour", "url": "https://github.com/divyanshugour" },
   "homepage": "https://github.com/divyanshugour/divtovid",

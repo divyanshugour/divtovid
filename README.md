@@ -1,7 +1,8 @@
 # divtovid
 
-A Claude Code mod that adds the `/divtovid` slash command: give it a website URL and Claude scrapes the site
-(name, tagline, features, call to action, brand colours, images) and turns it into a short promo video.
+A Claude Code plugin that adds the `/divtovid` slash command: give it a website URL and Claude scrapes the site
+(name, tagline, features, call to action, brand colours, images) and turns it into a short promo video, which it
+sends to you in the chat when it is ready.
 
 ## Install
 
@@ -22,47 +23,29 @@ claude plugin install divtovid --marketplace divyanshugour/divtovid
 In the Claude desktop app, where `/plugin` does not run: click + next to the prompt box, then Plugins,
 Add marketplace with `divyanshugour/divtovid`, then Add plugin.
 
+To update an older install, run `claude plugin update divtovid@divtovid` and restart Claude Code.
+
 ## Usage
 
 ```
 /divtovid https://example.com
 ```
 
-Run `/divtovid` with no URL and it puts `/divtovid https://` in the prompt box for you to finish. It then asks
-how long the video should be (15, 30 or 60 seconds, or type your own) and hands Claude the job.
+Leave the URL out and Claude asks for it. Claude then asks how long the video should be (15, 30 or 60 seconds, or
+type your own), and does the rest:
 
-When the video is ready, Claude sends it to you **in the chat**, so you can watch it right there. It works in
-`divtovid-videos/<site>/` in the current folder (`content.json` holds the scraped content and scene script, a
-Remotion project builds the animation, and the file is `out/<site>.mp4`); if your session cannot send files into
-the chat, Claude gives you the file's path instead.
+1. scrapes the site and saves what it found to `divtovid-videos/<site>/content.json`;
+2. writes a 4-6 scene script that adds up to the chosen length (30 fps, 1920x1080);
+3. builds a Remotion project in the same folder that animates the scenes;
+4. checks a few frames, renders `out/<site>.mp4`, and **sends the video into the chat**
+   (if your session cannot send files, Claude gives you the file's path instead).
 
-## What the mod does inside Claude Code
+## What the plugin contains
 
-The mod is one hooks module, [`hooks/register.ts`](hooks/register.ts). It does exactly this and nothing else:
-
-- **Registers one slash command, `/divtovid`**, when a session starts (`session.start`).
-- **Answers that command** (`command.run`, only for `/divtovid`). It does not see or change any other command.
-  It reads only the text typed after `/divtovid`; it does not read the conversation, your files or any other data.
-- **Asks one question** in Claude Code's own question dialog: how long the video should be.
-- **Fills the prompt box** with `/divtovid https://` when no valid URL was given, so you only type the URL.
-
-### The prompt it submits
-
-After you answer the length question, the mod submits **one prompt** to Claude, built only from the URL you typed
-and the length you picked. Nothing from the conversation or your machine goes into it. The prompt asks Claude to:
-
-1. fetch the website and pull out its name, tagline, 3-5 features, call to action, brand colours and logo/hero images,
-   saving them to `divtovid-videos/<site>/content.json`;
-2. write a 4-6 scene script that adds up to the chosen length (30 fps, 1920x1080) into the same file;
-3. build a Remotion project in `divtovid-videos/<site>/` that animates those scenes;
-4. render it with `npx remotion render` to `divtovid-videos/<site>/out/<site>.mp4`;
-5. check a few frames, then send the finished MP4 into the chat with a one-line caption and a one-line summary of
-   each scene (only if sending files is not available, give the file's path instead), or stop and say why if the
-   site cannot be fetched.
-
-The prompt goes through Claude Code's normal permission rules, so you approve the commands Claude runs
-(such as `npm install` and the render) as usual. If Claude Code refuses or drops the prompt, the mod writes one line
-saying why and puts the same prompt in your prompt box instead, so nothing is sent until you press Enter.
+One file: [`commands/divtovid.md`](commands/divtovid.md), the instructions Claude follows when you run `/divtovid`.
+There is no code, no hook and no MCP server. The plugin does not read your conversation or files on its own;
+it only gives Claude a task when you type the command. Claude works through Claude Code's normal permission
+rules, so you approve the commands it runs (such as `npm install` and the render) as usual.
 
 ## Requirements
 
