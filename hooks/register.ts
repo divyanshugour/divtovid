@@ -43,7 +43,11 @@ function brief(url: string, seconds: number): string {
     '',
     `4. Render it: npx remotion render src/index.ts Promo out/${slug}.mp4 (run it in the background, it can take minutes).`,
     '',
-    `5. When it is done, tell me the full path of the MP4, its length, and a one-line summary of each scene.`,
+    '5. When it is done, check a few frames (npx remotion still) to make sure nothing is cut off or overlapping, then',
+    '   send the finished MP4 to me in this chat with the SendUserFile tool (load it with ToolSearch first if it is',
+    '   only listed as a deferred tool), so I can watch it right here without hunting for a folder.',
+    '   Add a one-line caption with the length. Then give me a one-line summary of each scene.',
+    '   Only if SendUserFile is not available in this session, give me the full path of the MP4 instead.',
     'If the site cannot be fetched, stop and tell me why instead of inventing content.',
   ].join('\n')
 }
@@ -88,6 +92,6 @@ export const register: Register = on => {
       (error: unknown) => fallback(error instanceof Error ? error.message : String(error)),
     )
 
-    return { text: `Making a ${seconds}s video for ${url} in divtovid-videos/${slugFor(url)}/` }
+    return { text: `Making a ${seconds}s video for ${url}. I'll send it to you in this chat when it is ready.` }
   }).catch(() => ({ text: `/${COMMAND} failed to start. Try again, or check the debug log.` }))
 }

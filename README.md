@@ -31,8 +31,10 @@ Add marketplace with `divyanshugour/divtovid`, then Add plugin.
 Run `/divtovid` with no URL and it puts `/divtovid https://` in the prompt box for you to finish. It then asks
 how long the video should be (15, 30 or 60 seconds, or type your own) and hands Claude the job.
 
-Claude works in `divtovid-videos/<site>/` in the current folder: `content.json` holds the scraped content and
-scene script, a Remotion project builds the animation, and the finished video lands in `out/<site>.mp4`.
+When the video is ready, Claude sends it to you **in the chat**, so you can watch it right there. It works in
+`divtovid-videos/<site>/` in the current folder (`content.json` holds the scraped content and scene script, a
+Remotion project builds the animation, and the file is `out/<site>.mp4`); if your session cannot send files into
+the chat, Claude gives you the file's path instead.
 
 ## What the mod does inside Claude Code
 
@@ -54,8 +56,9 @@ and the length you picked. Nothing from the conversation or your machine goes in
 2. write a 4-6 scene script that adds up to the chosen length (30 fps, 1920x1080) into the same file;
 3. build a Remotion project in `divtovid-videos/<site>/` that animates those scenes;
 4. render it with `npx remotion render` to `divtovid-videos/<site>/out/<site>.mp4`;
-5. report the MP4's path, its length and a one-line summary of each scene, or stop and say why if the site
-   cannot be fetched.
+5. check a few frames, then send the finished MP4 into the chat with a one-line caption and a one-line summary of
+   each scene (only if sending files is not available, give the file's path instead), or stop and say why if the
+   site cannot be fetched.
 
 The prompt goes through Claude Code's normal permission rules, so you approve the commands Claude runs
 (such as `npm install` and the render) as usual. If Claude Code refuses or drops the prompt, the mod writes one line
