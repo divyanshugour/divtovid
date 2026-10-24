@@ -1,0 +1,5 @@
+{
+  "name": "divtovid",
+  "owner": { "name": "divyanshugour" },
+  "plugins": [{ "name": "divtovid", "source": "./" }]
+}
