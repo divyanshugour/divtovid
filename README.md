@@ -1,3 +1,5 @@
+<p align="center"><img src="logo.png" alt="DivtoVid" width="240"></p>
+
 # divtovid
 
 A Claude Code plugin that adds the `/divtovid` slash command: give it a website URL and Claude scrapes the site
