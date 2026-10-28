@@ -1,7 +1,7 @@
 {
   "name": "divtovid",
-  "version": "0.3.0",
-  "description": "/divtovid: scrape a website and turn it into a short promo video",
+  "version": "0.4.0",
+  "description": "/divtovid: scrape a website and turn it into a short promo video; plus the talking-video-vfx reel-editing skill",
   "author": { "name": "divyanshugour", "url": "https://github.com/divyanshugour" },
   "homepage": "https://github.com/divyanshugour/divtovid",
   "license": "MIT",

@@ -1,0 +1,12 @@
+{
+  "name": "divtovid-reel",
+  "private": true,
+  "type": "module",
+  "description": "Launch reel for DivtoVid, built in the talking-video-vfx editorial card style",
+  "scripts": { "render": "node render.mjs" },
+  "dependencies": {
+    "@fontsource/inter": "5.2.5",
+    "@fontsource/instrument-serif": "5.2.5",
+    "@fontsource/jetbrains-mono": "5.2.5"
+  }
+}

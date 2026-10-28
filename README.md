@@ -42,11 +42,22 @@ type your own), and does the rest:
 4. checks a few frames, renders `out/<site>.mp4`, and **sends the video into the chat**
    (if your session cannot send files, Claude gives you the file's path instead).
 
+## Talking-video VFX skill
+
+The plugin also ships the `talking-video-vfx` skill ([`skills/talking-video-vfx/SKILL.md`](skills/talking-video-vfx/SKILL.md)).
+Give Claude a raw talking-head video (Hindi, English or Hinglish) and it edits it into a 9:16 reel in an editorial
+motion-graphics style: hard cuts between you and full-screen explainer cards that build up word by word, logos behind
+the speaker, screenshot highlights, graphs, flip calendars and a CTA card. It storyboards first and renders the final
+MP4 only after you approve. Just ask, for example: "edit this reel in the talking-video-vfx style".
+
+[`reel/`](reel) holds a launch reel for DivtoVid itself, built in the same card style (`cd reel && npm install && node render.mjs`).
+
 ## What the plugin contains
 
-One file: [`commands/divtovid.md`](commands/divtovid.md), the instructions Claude follows when you run `/divtovid`.
-There is no code, no hook and no MCP server. The plugin does not read your conversation or files on its own;
-it only gives Claude a task when you type the command. Claude works through Claude Code's normal permission
+[`commands/divtovid.md`](commands/divtovid.md) holds the instructions Claude follows when you run `/divtovid`, and
+[`skills/talking-video-vfx/SKILL.md`](skills/talking-video-vfx/SKILL.md) holds the reel-editing skill.
+There is no hook and no MCP server. The plugin does not read your conversation or files on its own;
+it only gives Claude a task when you type the command or ask for the skill. Claude works through Claude Code's normal permission
 rules, so you approve the commands it runs (such as `npm install` and the render) as usual.
 
 ## Requirements
